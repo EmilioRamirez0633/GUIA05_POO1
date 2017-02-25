@@ -36,7 +36,7 @@ public class Conexion {
     {
         try {
             Properties prop = new Properties();
-            try(InputStream file = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.porperties"))
+            try(InputStream file = Thread.currentThread().getContextClassLoader().getResourceAsStream("config.properties"))
             {
                 prop.load(file);
                 //Obtener valores de la concexion

@@ -6,6 +6,8 @@
 package com.sv.udb.vista;
 
 import com.sv.udb.recursos.Conexion;
+import java.sql.Connection;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -94,8 +96,15 @@ public class frmPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     
-           
+         Connection conn = new Conexion().getConn();
+         try {
+            if(conn.isValid(3000))
+            {
+                JOptionPane.showMessageDialog(this, "Estamos Bien");
+            }
+        } catch (Exception ex) {
+             System.err.println("Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
