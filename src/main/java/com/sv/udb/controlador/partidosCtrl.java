@@ -5,6 +5,7 @@
  */
 package com.sv.udb.controlador;
 
+import com.sv.udb.modelo.PartidoAux;
 import com.sv.udb.modelo.Partidos;
 import com.sv.udb.recursos.Conexion;
 import java.sql.Connection;
@@ -20,9 +21,9 @@ import java.util.List;
  */
 public class partidosCtrl {
     //Buscar equipos
-    public List<Partidos> consPart()
+    public List<PartidoAux> consPart()
     {
-       List<Partidos> resp = new ArrayList();
+       List<PartidoAux> resp = new ArrayList();
        Connection cn = new Conexion().getConn();
         try
         {
@@ -30,7 +31,7 @@ public class partidosCtrl {
             ResultSet rs = cmd.executeQuery();
             while(rs.next())
             {
-                resp.add(new Partidos(rs.getInt(1),rs.getString(2)));
+                resp.add(new PartidoAux(rs.getInt(1),rs.getString(2)));
             }
             //Se carga el 
         }
@@ -70,7 +71,7 @@ public class partidosCtrl {
             ResultSet rs = cmd.executeQuery();
             PreparedStatement cmd2 = cn.prepareStatement("select nomb_equi from partidos,equipos where partidos.codi_equipo_a = equipos.codi_equi");
             ResultSet rs2 = cmd2.executeQuery();
-            while(rs.next())
+            while(rs.next() && rs2.next())
             {
                 resp.add(new Partidos(rs.getInt(1), rs.getInt(2),rs2.getString(1),rs.getInt(3),rs.getString(4),rs.getInt(5),rs.getInt(6),rs.getString(7),rs.getString(8),rs.getString(9)));
             }
@@ -121,6 +122,40 @@ public class partidosCtrl {
         catch(Exception ex)
         {
             System.err.println("Error al guardar Equipos: " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                if(cn!=null)
+                {
+                    if(!cn.isClosed())
+                    {
+                        cn.close();
+                    }
+                }
+            }
+            catch(SQLException err)
+            {
+                err.printStackTrace();
+            }
+        }
+        return resp;
+    }
+    public boolean elim(Partidos obje)
+    {
+         boolean resp = false;
+        Connection cn = new Conexion().getConn();
+        try
+        {
+            PreparedStatement cmd = cn.prepareStatement("Delete from partidos where id_partido = ?");
+            cmd.setString(1, String.valueOf(obje.getCodigo()));
+            cmd.executeUpdate();
+            resp=true;
+        }
+        catch(Exception ex)
+        {
+            System.err.println("Error al eliminar el encuentro " + ex.getMessage());
         }
         finally
         {

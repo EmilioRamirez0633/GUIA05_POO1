@@ -10,8 +10,6 @@ package com.sv.udb.modelo;
  * @author leyes
  */
 public class Partidos {
-    private String Equipos;
-    private int Codigos;
     private int codigo;
     private int codigoEquipoA;
     private String nombreEquipoA;
@@ -51,34 +49,10 @@ public class Partidos {
     public void setNombreEquipoB(String nombreEquipoB) {
         this.nombreEquipoB = nombreEquipoB;
     }
-    public String getEquipos() {
-        return Equipos;
-    }
-
-    public void setEquipos(String Equipos) {
-        this.Equipos = Equipos;
-    }
-
-    public int getCodigos() {
-        return Codigos;
-    }
-
-    public void setCodigos(int Codigos) {
-        this.Codigos = Codigos;
-    }
-
-    public Partidos(int Codigos,String Equipos) {
-        this.Equipos = Equipos;
-        /*this.nombreEquipoA = Equipos;
-        this.nombreEquipoB = Equipos;*/
-        this.Codigos = Codigos;
-        /*this.codigoEquipoA = Codigos;
-        this.codigoEquipoB = Codigos;*/
-    }
-
+  
     @Override
     public String toString() {
-        return this.Equipos;
+        return this.nombreEquipoA;
     }
 
 
