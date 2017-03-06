@@ -51,11 +51,6 @@ public class Partidos {
     public void setNombreEquipoB(String nombreEquipoB) {
         this.nombreEquipoB = nombreEquipoB;
     }
-
-    
-
-    
-
     public String getEquipos() {
         return Equipos;
     }
