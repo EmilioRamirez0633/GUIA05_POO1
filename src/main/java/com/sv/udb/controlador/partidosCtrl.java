@@ -176,4 +176,47 @@ public class partidosCtrl {
         }
         return resp;
     }
+    //modificar
+    
+    public boolean modi(Partidos obje)
+    {
+         boolean resp = false;
+        Connection cn = new Conexion().getConn();
+        try
+        {
+            PreparedStatement cmd = cn.prepareStatement("update partidos set codi_equipo_a=?,codi_equipo_b=?,marcador_equipo_a=?,marcador_equipo_b=?,fecha=?,hora=?,lugar=? where id_partido=?");
+            cmd.setString(1, String.valueOf(obje.getCodigoEquipoA())); 
+            cmd.setString(2, String.valueOf(obje.getCodigoEquipoB()));
+            cmd.setString(3, String.valueOf(obje.getMarcadorEquipoA()));
+            cmd.setString(4, String.valueOf(obje.getMarcadorEquipoB()));
+            cmd.setString(5, String.valueOf(obje.getFecha()));
+            cmd.setString(6, String.valueOf(obje.getHora()));
+            cmd.setString(7, String.valueOf(obje.getLugar()));
+            cmd.setString(8, String.valueOf(obje.getCodigo()));
+            cmd.executeUpdate();
+            resp=true;
+        }
+        catch(Exception ex)
+        {
+            System.err.println("Error al modificar el Partido " + ex.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                if(cn!=null)
+                {
+                    if(!cn.isClosed())
+                    {
+                        cn.close();
+                    }
+                }
+            }
+            catch(SQLException err)
+            {
+                err.printStackTrace();
+            }
+        }
+        return resp;
+    }
 }

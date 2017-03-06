@@ -479,6 +479,14 @@ public class frmPartidos extends javax.swing.JFrame {
             {
                 throw new Exception("Ingrese el lugar del encuentro");
             }
+            if(this.tblEquiposA.getSelectedRow() < 0)
+            {
+                throw new Exception("Seleccione un equipo A");
+            }
+            if(this.tblEquiposB.getSelectedRow() < 0)
+            {
+                throw new Exception("Seleccione un equipo B");
+            }
             Partidos obje = new Partidos();
             int fila = this.tblEquiposA.getSelectedRow();
             PartidoAux objeT = (PartidoAux)this.tblEquiposA.getValueAt(fila, 0);
@@ -517,7 +525,84 @@ public class frmPartidos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+       try
+        {
+            if(txtid.getText().isEmpty())
+            {
+                throw new Exception("Seleccione un registro a eliminar");
+            }
+            if(txtEquipoA.getText().isEmpty())
+            {
+                throw new Exception("Ingrese un equipo A");
+            }
+            if(txtEquipoB.getText().isEmpty())
+            {
+                throw new Exception("Ingrese un equipo B");
+            }
+            if(txtMarcaA.getText().isEmpty())
+            {
+                throw new Exception("Ingrese un marcador al equipo A");
+            }
+            if(txtMarcaB.getText().isEmpty())
+            {
+                throw new Exception("Ingrese un marcador al equipo B");
+            }
+            if(txtfecha.getText().isEmpty())
+            {
+                throw new Exception("Ingrese la fecha del encuentro");
+            }
+            if(txthora.getText().isEmpty())
+            {
+                throw new Exception("Ingrese la hora del encuentro");
+            }
+            if(txtlugar.getText().isEmpty())
+            {
+                throw new Exception("Ingrese el lugar del encuentro");
+            }
+            if(this.tblEquiposA.getSelectedRow() < 0)
+            {
+                throw new Exception("Seleccione un equipo A");
+            }
+            if(this.tblEquiposB.getSelectedRow() < 0)
+            {
+                throw new Exception("Seleccione un equipo B");
+            }
+            Partidos obje = new Partidos();
+            int fila = this.tblEquiposA.getSelectedRow();
+            PartidoAux objeT = (PartidoAux)this.tblEquiposA.getValueAt(fila, 0);
+            obje.setCodigoEquipoA(objeT.getCodigos());
+            
+            int fila2 = this.tblEquiposB.getSelectedRow();
+            PartidoAux objeT2 = (PartidoAux)this.tblEquiposB.getValueAt(fila2, 0);
+            obje.setCodigoEquipoB(objeT2.getCodigos());
+            obje.setMarcadorEquipoA(Integer.parseInt(this.txtMarcaA.getText()));
+            obje.setMarcadorEquipoB(Integer.parseInt(this.txtMarcaB.getText()));
+            obje.setFecha(this.txtfecha.getText());
+            obje.setHora(this.txthora.getText());
+            obje.setLugar(this.txtlugar.getText());
+            obje.setCodigo(Integer.parseInt(this.txtid.getText()));
+            if(new partidosCtrl().modi(obje))
+            {
+                JOptionPane.showMessageDialog(this, "Datos modificados");
+                txtid.setText("");
+                txtEquipoA.setText("");
+                txtEquipoB.setText("");
+                txtMarcaA.setText("");
+                txtMarcaB.setText("");
+                txtfecha.setText("");
+                txtlugar.setText("");
+                txthora.setText("");
+                cargarResul();
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Oops! algo malo pasó");
+            }
+        }
+        catch(Exception ex)
+        {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -605,8 +690,6 @@ public class frmPartidos extends javax.swing.JFrame {
         if(fila >= 0)
         {
             Partidos obje = (Partidos)this.tblMarcadores.getValueAt(fila, 0);
-            PartidoAux objeT = (PartidoAux)this.tblEquiposA.getValueAt(fila, 0);
-             PartidoAux objeT2 = (PartidoAux)this.tblEquiposB.getValueAt(fila, 0);
             this.txtid.setText(String.valueOf(obje.getCodigo()));
             this.txtMarcaA.setText(String.valueOf(obje.getMarcadorEquipoA()));
             this.txtMarcaB.setText(String.valueOf(obje.getMarcadorEquipoB()));
@@ -615,8 +698,6 @@ public class frmPartidos extends javax.swing.JFrame {
             this.txthora.setText(String.valueOf(obje.getHora()));
             this.txtEquipoA.setText(String.valueOf(obje.getNombreEquipoA()));
             this.txtEquipoB.setText(String.valueOf(obje.getNombreEquipoB()));
-            objeT.setCodigos(obje.getCodigoEquipoA());
-            objeT2.setCodigos(obje.getCodigoEquipoB());
         }
     }//GEN-LAST:event_tblMarcadoresMouseClicked
 
